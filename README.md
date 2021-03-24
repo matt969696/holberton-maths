@@ -1,1 +1,1 @@
-# holberton-maths
+Folder containing optional Maths projects
