@@ -1,0 +1,1 @@
+Folder containing solutions for Sequence project
