@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+double func(double x)
+{
+	float ret;
+
+	ret = 1.0 / (1 + x * x);
+	return (ret);
+}
+
+
+double Rect_Integral(float a, float b, int step)
+{
+	double dx = (b - a) / step;
+	double res = 0;
+	double xi = a;
+	int i;
+
+	for (i = 1; i < step; i++)
+	{
+
+		res = res + dx * func(xi + dx / 2);
+		xi += dx;
+	}
+	return (res);
+}
+
+
+double Simp_Integral(float a, float b, int step2)
+{
+	int step = (step2 / 2) * 2;
+	double dx = (b - a) / step;
+	double res = 0;
+	double xi = a;
+	int coeff;
+	int i;
+
+	for (i = 0; i <= step; i++)
+	{
+		if (i == 0 || i == step)
+			coeff = 1;
+		else if (i % 2 == 1)
+			coeff = 4;
+		else
+			coeff = 2;
+		res = res + coeff * func(xi);
+		xi += dx;
+	}
+	return (res * dx / 3);
+}
+
+
+int main()
+{
+	float a = 0.0;
+	float b = 1.0;
+	int step = 1000000;
+	double Rintegral, Sintegral;
+
+	Rintegral = Rect_Integral(a, b, step);
+	printf("The Rectangle approximation of the Integral is : %.9f\n", Rintegral);
+	Sintegral = Simp_Integral(a, b, step);
+	printf("The Simplon approximation of the Integral is :   %.9f\n", Sintegral);
+	printf("The exact value is :                             %.9f\n", 3.1415926535 / 4);
+}
